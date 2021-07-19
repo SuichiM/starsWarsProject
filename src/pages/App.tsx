@@ -1,10 +1,14 @@
 import React from 'react';
 import '@assets/styles.scss';
+import Search from '@components/Search';
+import Layout from '@components/Layout';
 
-const App: React.FC = () => (
-  <div className="wrapper">
-    <h1>React 17 and TypeScript 4!🚀</h1>
-  </div>
-);
+const App: React.FC = () => {
+  return (
+    <Layout>
+      <Search></Search>
+    </Layout>
+  );
+};
 
 export default App;
