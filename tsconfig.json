@@ -13,20 +13,16 @@
     "downlevelIteration": true,
     "paths": {
       "*": ["src/*"],
-      "@pages/*": ["pages/*"],
-      "@components/*": ["components/*"],
       "@assets/*": ["assets/*"],
+      "@components/*": ["components/*"],
+      "@config/*": ["config/*"],
+      "@pages/*": ["pages/*"],
+      "@services/*": ["services/*"]
     },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable"
-    ],
+    "lib": ["esnext", "dom", "dom.iterable"],
     "sourceMap": true,
-    "noImplicitAny": false,
+    "noImplicitAny": false
   },
   "exclude": ["node_modules", "build"],
-  "include": [
-    "./src",
-    "webpack.config.ts" ]
+  "include": ["./src", "webpack.config.ts", "*.ts", "*.tsx"]
 }

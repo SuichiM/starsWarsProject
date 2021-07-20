@@ -11,7 +11,7 @@ const PageHeader: React.FC = () => (
       width: '100%',
       textAlign: 'center',
     }}>
-    <h1 style={{color: 'white'}}>THE STARS WARS CHALLENGE</h1>
+    <h1 className="mt-2 text-white">THE STARS WARS CHALLENGE</h1>
   </Header>
 );
 
