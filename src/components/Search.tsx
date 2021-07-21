@@ -1,5 +1,8 @@
-import React, {useState, useEffect} from 'react';
-import {Select, Spin} from 'antd';
+import React, {useState, useEffect, useContext} from 'react';
+import {Select, Spin, message} from 'antd';
+import {MainContext} from '@pages/App';
+import debounce from 'lodash/debounce';
+
 import 'antd/dist/antd.css';
 
 import api from '@services/api';
@@ -17,38 +20,76 @@ const TYPE_OPTIONS = [
   {value: 'starships', icon: '☄️', label: 'starships'},
 ];
 
-type frmDataType = {
-  type: ResourceType;
-  input: string;
+const SEARCH_SUGGESTIONS = {
+  planets: 'Tatooine',
+  people: 'Dart Vader',
+  films: 'A New Hope',
+  species: 'Ewok',
+  vehicles: 'Sail barge',
+  starships: 'Executor',
 };
 
+const DELAY_TIME = 800;
+
 const SearchComponent: React.FC = () => {
+  const {selectedOptions, setSelectedOptions} = useContext(MainContext);
+
   const [loading, setLoading] = useState(false);
+  const [type, setType] = useState(DEFAULT_TYPE);
+  const [searchText, setSearchText] = useState('');
+  const [options, setOptions] = useState([]);
 
-  const initialFormData: frmDataType = {
-    type: DEFAULT_TYPE,
-    input: '',
-  };
-  const [frm, setFrm] = useState(initialFormData);
+  const debouncedSearchText = debounce(setSearchText, DELAY_TIME);
 
-  const [autoCompleteOptions, setAutoCompleteOptions] = useState([]);
-
-  const handleInputChange = async (input: string, value: string) => {
-    setFrm({
-      ...frm,
-      [input]: value,
-    });
+  const handleAddSelectedOption = (value) => {
+    const selectedOption = options[value];
+    setSelectedOptions([
+      ...selectedOptions,
+      {
+        ...selectedOption,
+        id: `${type}_${value}`,
+        type,
+      },
+    ]);
+    setSearchText('');
   };
 
   useEffect(() => {
-    if (frm.input.length > 2) {
+    if (searchText.length > 2) {
       setLoading(true);
-      api.getResources(frm.type, frm.input).then((res) => {
-        setAutoCompleteOptions(res || []);
-        setTimeout(() => setLoading(false), 2000);
+      api.getResources(type, searchText).then((result = []) => {
+        setOptions(result || []);
+        setLoading(false);
+        if (result.length === 0)
+          message.warning(
+            `There was no lucky on the search. Why don't try: ${SEARCH_SUGGESTIONS[type]}`,
+          );
       });
     }
-  }, [frm.input, frm.type]);
+  }, [type, searchText]);
+
+  const typeOptionsRender = TYPE_OPTIONS.map(({value, icon, label}, idx) => (
+    <Option key={idx} value={value}>
+      {icon} {'  '}
+      {label}
+    </Option>
+  ));
+
+  const spinnerRender =
+    loading === true ? (
+      <span className="text-center">
+        <Spin />{' '}
+      </span>
+    ) : null;
+
+  const OptionsRender = options.map(({value, name, title, population}, idx) => (
+    <Option key={idx} value={value}>
+      <span className="fw-bolder">{name || title}</span>{' '}
+      {Boolean(population) && (
+        <small className="text-muted">{`(pop. ${population})`}</small>
+      )}
+    </Option>
+  ));
 
   return (
     <div className="d-flex justify-content-center">
@@ -56,18 +97,13 @@ const SearchComponent: React.FC = () => {
         style={{
           width: 150,
         }}
-        onChange={(value: string) => handleInputChange('type', value)}
-        value={frm.type}>
-        {TYPE_OPTIONS.map(({value, icon, label}, idx) => (
-          <Option key={idx} value={value}>
-            {icon} {'  '}
-            {label}
-          </Option>
-        ))}
+        onChange={(value) => setType(value)}
+        value={type}>
+        {typeOptionsRender}
       </Select>
       <Select
         showSearch
-        value={frm.input}
+        value={searchText}
         placeholder="Input your search"
         style={{
           width: '60%',
@@ -75,23 +111,10 @@ const SearchComponent: React.FC = () => {
         defaultActiveFirstOption={false}
         showArrow={false}
         filterOption={false}
-        onSearch={(value) => handleInputChange('input', value)}
-        //onChange={(value) => handleInputChange('input', value)}
-        notFoundContent={
-          loading === true ? (
-            <span className="text-center">
-              <Spin />{' '}
-            </span>
-          ) : null
-        }>
-        {autoCompleteOptions.map(({value, name, title, population}, idx) => (
-          <Option key={idx} value={value}>
-            <span className="fw-bolder">{name || title}</span>{' '}
-            {Boolean(population) && (
-              <small className="text-muted">{`(pop. ${population})`}</small>
-            )}
-          </Option>
-        ))}
+        onSearch={(value) => debouncedSearchText(value)}
+        onChange={(value) => handleAddSelectedOption(value)}
+        notFoundContent={spinnerRender}>
+        {OptionsRender}
       </Select>
     </div>
   );

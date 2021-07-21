@@ -1,5 +1,3 @@
-// import _ from 'lodash';
-
 import config from '@config/index';
 const {API_URL} = config;
 
@@ -13,10 +11,7 @@ const request = async function (
   return results;
 };
 
-function getResources(
-  type: ResourceType,
-  searchText: string,
-): Promise<TPeople[] | TPlanets[] | null> {
+function getResources(type: ResourceType, searchText: string): Promise<TList> {
   return request(API_URL, type, searchText);
 }
 

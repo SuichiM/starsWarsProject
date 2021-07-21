@@ -41,9 +41,11 @@ type TPlanets = {
   population: number;
 };
 
+type TList = TPeople[] | TPlanets[];
+
 type TAPIResponse = {
   count: number;
-  results: TPeople[] | TPlanets[];
+  results: TList;
   next: string;
   previous: string;
   error?: string;
