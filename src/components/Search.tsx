@@ -58,6 +58,7 @@ const SearchComponent: React.FC = () => {
       },
     ]);
     setSearchText('');
+    setOptions([]);
   };
 
   useEffect(() => {
