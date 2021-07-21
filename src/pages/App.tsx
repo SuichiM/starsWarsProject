@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
 import '@assets/styles.scss';
-import Search from '@components/Search';
 import Layout from '@components/Layout';
+import Search from '@components/Search';
+import List from '@components/List';
+
 import {Divider} from 'antd';
 
 export const MainContext = React.createContext(null);
@@ -16,8 +18,9 @@ const App: React.FC = () => {
           selectedOptions,
           setSelectedOptions,
         }}>
-        <Search></Search>
-        <Divider></Divider>
+        <Search />
+        <Divider />
+        <List />
       </MainContext.Provider>
     </Layout>
   );

@@ -1,24 +1,13 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {Select, Spin, message} from 'antd';
+import {Select, Spin, message, Modal} from 'antd';
 import {MainContext} from '@pages/App';
 import debounce from 'lodash/debounce';
-
 import 'antd/dist/antd.css';
 
 import api from '@services/api';
+import {TYPE_OPTIONS, DEFAULT_TYPE} from '@config/index';
 
 const {Option} = Select;
-
-const DEFAULT_TYPE: ResourceType = 'planets';
-
-const TYPE_OPTIONS = [
-  {value: 'planets', icon: '🪐', label: 'planets'},
-  {value: 'people', icon: '👸', label: 'people'},
-  {value: 'films', icon: '⭐', label: 'films'},
-  {value: 'species', icon: '👾', label: 'species'},
-  {value: 'vehicles', icon: '🛸', label: 'vehicles'},
-  {value: 'starships', icon: '☄️', label: 'starships'},
-];
 
 const SEARCH_SUGGESTIONS = {
   planets: 'Tatooine',
@@ -41,8 +30,25 @@ const SearchComponent: React.FC = () => {
 
   const debouncedSearchText = debounce(setSearchText, DELAY_TIME);
 
+  const showRequest = () =>
+    Modal.error({
+      title: `Please don't add the same element again! is a requirement`,
+      content: 'I really really want this job',
+      okText: 'I will',
+      onOk: (close) => {
+        message.success('I really appreciate');
+        close();
+      },
+    });
+
   const handleAddSelectedOption = (value) => {
     const selectedOption = options[value];
+
+    const alreadyAdded = selectedOptions.some(
+      (el) => el.type === type && el.name === selectedOption.name,
+    );
+    if (alreadyAdded) return showRequest();
+
     setSelectedOptions([
       ...selectedOptions,
       {

@@ -1,13 +1,33 @@
-// import { Card } from 'semantic-ui-react'
+import React, {useContext} from 'react';
+import {MainContext} from '@pages/App';
+
+import {TYPE_OPTIONS} from '@config/index';
+
+const ICONS = TYPE_OPTIONS.reduce(
+  (prev, {value, icon}) => ({...prev, [value]: icon}),
+  {},
+);
 
 /* type ListProps = {
-  products: TList[];
+  items: TPeople[] | TPlanets[];
+}; */
+
+const mapItemsToCards = (items: TPeople[] | TPlanets[], removeItem) =>
+  items.map((el, index) => (
+    <div key={`item_${index}`}>
+      {ICONS[el.type]} {el.type} {el.name} {el.title}
+      <button onClick={() => removeItem(el.id)}>remove</button>
+    </div>
+  ));
+
+const ProductList = (/* {items}: ListProps */) => {
+  const {selectedOptions, setSelectedOptions} = useContext(MainContext);
+
+  const removeItem = (id) => {
+    setSelectedOptions(selectedOptions.filter((el) => el.id === id));
+  };
+
+  return <div>{mapItemsToCards(selectedOptions, removeItem)}</div>;
 };
 
-const mapProductsToCards = (products: TList[]) =>
-  products.map((el) => `${el.type} ${el.name} ${el.title}`);
-
-const ProductList = ({products}: ListProps) => mapProductsToCards(products);
-
 export default ProductList;
- */
