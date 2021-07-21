@@ -33,10 +33,10 @@ const SearchComponent: React.FC = () => {
   const showRequest = () =>
     Modal.error({
       title: `Please don't add the same element again! is a requirement`,
-      content: 'I really really want this job',
+      content: 'I really, really, want this job',
       okText: 'I will',
       onOk: (close) => {
-        message.success('I really appreciate');
+        message.success('I appreciate');
         close();
       },
     });
@@ -98,7 +98,8 @@ const SearchComponent: React.FC = () => {
   ));
 
   return (
-    <div className="d-flex justify-content-center">
+    <div className="container text-center">
+      <div className="h2 mx-auto">May the force be with your search</div>
       <Select
         style={{
           width: 150,
