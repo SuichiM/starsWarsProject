@@ -13,21 +13,16 @@ const myLayout: React.FC = ({children}) => (
       <Content
         className="site-layout"
         style={{padding: '0 50px', marginTop: 64}}>
-        <div
-          className="site-layout-background"
-          style={{padding: 24, minHeight: 380}}>
-          {children}
-        </div>
+        {children}
       </Content>
       <PageFooter></PageFooter>
     </Layout>
     <style jsx>{`
       .site-layout {
-        height: 'calc(100vh - 55px)';
-      }
-      .site-layout .site-layout-background {
         background: #fff;
         height: calc(100vh - 64px - 70px);
+      }
+      .site-layout .site-layout-background {
       }
     `}</style>
   </>

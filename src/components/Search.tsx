@@ -20,6 +20,8 @@ const SEARCH_SUGGESTIONS = {
 
 const DELAY_TIME = 800;
 
+const makeID = (url) => {};
+
 const SearchComponent: React.FC = () => {
   const {selectedOptions, setSelectedOptions} = useContext(MainContext);
 
@@ -48,6 +50,9 @@ const SearchComponent: React.FC = () => {
       (el) => el.type === type && el.name === selectedOption.name,
     );
     if (alreadyAdded) return showRequest();
+
+    const {url} = selectedOptions;
+    const id = makeID(url);
 
     setSelectedOptions([
       ...selectedOptions,
@@ -102,9 +107,7 @@ const SearchComponent: React.FC = () => {
     <div className="container text-center">
       <div className="h2 mx-auto">May the force be with your search</div>
       <Select
-        style={{
-          width: 150,
-        }}
+        className="col-12 col-sm-3"
         onChange={(value) => setType(value)}
         value={type}>
         {typeOptionsRender}
@@ -113,9 +116,7 @@ const SearchComponent: React.FC = () => {
         showSearch
         value={searchText}
         placeholder="Input your search"
-        style={{
-          width: '60%',
-        }}
+        className="col-12 col-sm-7"
         defaultActiveFirstOption={false}
         showArrow={false}
         filterOption={false}

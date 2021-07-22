@@ -1,14 +1,5 @@
 import React, {useContext, useState, ReactNode} from 'react';
-import {
-  List,
-  Avatar,
-  Tooltip,
-  Button,
-  Popconfirm,
-  message,
-  Modal,
-  Image,
-} from 'antd';
+import {List, Avatar, Tooltip, Button, Popconfirm, message, Modal} from 'antd';
 import {MainContext} from '@pages/App';
 import {TYPE_OPTIONS} from '@config/index';
 
@@ -73,6 +64,7 @@ const renderActions = (item, removeAction): ReactNode[] => [
 const renderItem = (item, removeAction) => (
   <Item actions={renderActions(item, removeAction)}>
     <Meta
+      className="d-flex flex-sm-row"
       avatar={renderAvatar(item)}
       title={
         <a target="_blank" rel="noreferrer" href={item.url}>
@@ -91,13 +83,13 @@ const advertThem = (times, setTimes) => {
 const teachThem = () =>
   Modal.error({
     title: `I find your obstinacy... disturbing`,
-    width: 700,
+    width: '50%',
     content: (
       <div className="container text-center">
-        <Image
-          width={400}
+        <img
           src="https://66.media.tumblr.com/81b20d0dc155e45e32d6aad6fda2e134/tumblr_nxmktjrb9s1rey868o1_500.gif"
-        />
+          className="rounded mx-auto d-block mt-2 responsive-img"
+          alt="the evil don't worry about a11y"></img>
         <div className="h1 mt-2">Promise to stop!</div>
       </div>
     ),
@@ -122,13 +114,31 @@ const ProductList = (/* {items}: ListProps */) => {
   };
 
   return (
-    <div className="container w-75">
-      <List
-        itemLayout="horizontal"
-        dataSource={selectedOptions}
-        renderItem={(item) => renderItem(item, removeItem)}
-      />
-    </div>
+    <>
+      <div className="container infinite-container col-12 col-md-8 col-lg-7">
+        <List
+          itemLayout="horizontal"
+          dataSource={selectedOptions}
+          renderItem={(item) => renderItem(item, removeItem)}
+        />
+      </div>
+      <style jsx>{`
+        .responsive-img {
+          width: 100%;
+          max-width: 400px;
+          height: auto;
+        }
+        .infinite-container {
+          height: 65%;
+          overflow: auto;
+          -ms-overflow-style: none; /* IE and Edge */
+          scrollbar-width: none; /* Firefox */
+        }
+        .infinite-container::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
+    </>
   );
 };
 
