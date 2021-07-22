@@ -20,7 +20,12 @@ const SEARCH_SUGGESTIONS = {
 
 const DELAY_TIME = 800;
 
-const makeID = (url) => {};
+/* extract the ID from the URL*/
+const makeID = (type: ResourceType, url: string) => {
+  const splitted = url.split('/');
+  const position = splitted.length - 2;
+  return `${type}_${splitted[position]}`;
+};
 
 const SearchComponent: React.FC = () => {
   const {selectedOptions, setSelectedOptions} = useContext(MainContext);
@@ -43,22 +48,22 @@ const SearchComponent: React.FC = () => {
       },
     });
 
-  const handleAddSelectedOption = (value) => {
-    const selectedOption = options[value];
+  const handleAddSelectedOption = (index) => {
+    const selectedOption = options[index];
 
     const alreadyAdded = selectedOptions.some(
       (el) => el.type === type && el.name === selectedOption.name,
     );
     if (alreadyAdded) return showRequest();
 
-    const {url} = selectedOptions;
-    const id = makeID(url);
+    const {url} = selectedOption;
+    const id = makeID(type, url);
 
     setSelectedOptions([
       ...selectedOptions,
       {
         ...selectedOption,
-        id: `${type}_${value}`,
+        id,
         type,
       },
     ]);
@@ -94,8 +99,8 @@ const SearchComponent: React.FC = () => {
       </span>
     ) : null;
 
-  const OptionsRender = options.map(({value, name, title, population}, idx) => (
-    <Option key={idx} value={value}>
+  const OptionsRender = options.map(({name, title, population, url}, idx) => (
+    <Option key={idx} value={idx}>
       <span className="fw-bolder">{name || title}</span>{' '}
       {Boolean(population) && (
         <small className="text-muted">{`(pop. ${population})`}</small>
