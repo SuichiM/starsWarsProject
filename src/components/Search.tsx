@@ -99,7 +99,7 @@ const SearchComponent: React.FC = () => {
       </span>
     ) : null;
 
-  const OptionsRender = options.map(({name, title, population, url}, idx) => (
+  const OptionsRender = options.map(({name, title, population}, idx) => (
     <Option key={idx} value={idx}>
       <span className="fw-bolder">{name || title}</span>{' '}
       {Boolean(population) && (
