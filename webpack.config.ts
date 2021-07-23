@@ -67,7 +67,9 @@ const webpackConfig = (): Configuration => ({
     /* new DefinePlugin({
       'process.env': `(${JSON.stringify(dotenv.parsed)})`,
     }), */
-    new DotenvWebpack(),
+    new DotenvWebpack({
+      ignoreStub: true,
+    }),
     new ForkTsCheckerWebpackPlugin({
       // Speeds up TypeScript type checking and ESLint linting (by moving each to a separate process)
       eslint: {
