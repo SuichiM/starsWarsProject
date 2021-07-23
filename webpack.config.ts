@@ -6,14 +6,14 @@ import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+const DotenvWebpack = require('dotenv-webpack');
+
 const {config: configDotEnv} = require('dotenv');
 const dotenv = configDotEnv();
 
 const isDev = process.env.production || !process.env.development;
 const HOST = process.env.HOST || '0.0.0.0';
 const PORT = process.env.PORT ? parseInt(process.env.PORT) : 8080;
-
-console.log(dotenv.parsed.API_URL);
 
 const webpackConfig = (): Configuration => ({
   entry: './src/index.tsx',
@@ -64,9 +64,10 @@ const webpackConfig = (): Configuration => ({
     new MiniCssExtractPlugin({
       filename: 'assets/[name].css',
     }),
-    new DefinePlugin({
+    /* new DefinePlugin({
       'process.env': `(${JSON.stringify(dotenv.parsed)})`,
-    }),
+    }), */
+    new DotenvWebpack(),
     new ForkTsCheckerWebpackPlugin({
       // Speeds up TypeScript type checking and ESLint linting (by moving each to a separate process)
       eslint: {

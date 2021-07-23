@@ -13,4 +13,7 @@ const config = {
   API_URL: process.env.API_URL,
 };
 
+// eslint-disable-next-line
+console.log(process.env.API_URL);
+
 export default config;
