@@ -10,7 +10,8 @@ export const TYPE_OPTIONS = [
 export const DEFAULT_TYPE: ResourceType = 'planets';
 
 const config = {
-  API_URL: process.env.API_URL,
+  // API_URL: process.env.API_URL,
+  API_URL: 'https://swapi.dev/api',
 };
 
 export default config;
