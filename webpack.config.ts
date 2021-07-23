@@ -13,6 +13,8 @@ const isDev = process.env.production || !process.env.development;
 const HOST = process.env.HOST || '0.0.0.0';
 const PORT = process.env.PORT ? parseInt(process.env.PORT) : 8080;
 
+console.log(dotenv.parsed.API_URL);
+
 const webpackConfig = (): Configuration => ({
   entry: './src/index.tsx',
   ...(isDev ? {devtool: 'eval-source-map'} : {}),
