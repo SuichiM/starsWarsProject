@@ -9,13 +9,13 @@ const {Content} = Layout;
 const myLayout: React.FC = ({children}) => (
   <>
     <Layout>
-      <PageHeader></PageHeader>
+      <PageHeader />
       <Content
         className="site-layout"
         style={{padding: '0 50px', marginTop: 64}}>
         {children}
       </Content>
-      <PageFooter></PageFooter>
+      <PageFooter />
     </Layout>
     <style jsx>{`
       .site-layout {

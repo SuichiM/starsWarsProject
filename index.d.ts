@@ -41,7 +41,7 @@ type TPlanets = {
   population: number;
 };
 
-type TList = TPeople[] | TPlanets[];
+type TList = Array<TPeople | TPlanets>;
 
 type TAPIResponse = {
   count: number;

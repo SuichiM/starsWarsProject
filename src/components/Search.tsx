@@ -20,7 +20,7 @@ const SEARCH_SUGGESTIONS = {
 
 const DELAY_TIME = 800;
 
-/* extract the ID from the URL*/
+/* extract the ID from the URL */
 const makeID = (type: ResourceType, url: string) => {
   const splitted = url.split('/');
   const position = splitted.length - 2;
@@ -85,8 +85,8 @@ const SearchComponent: React.FC = () => {
     }
   }, [type, searchText]);
 
-  const typeOptionsRender = TYPE_OPTIONS.map(({value, icon, label}, idx) => (
-    <Option key={idx} value={value}>
+  const typeOptionsRender = TYPE_OPTIONS.map(({value, icon, label}) => (
+    <Option key={`${value}_${label}`} value={value}>
       {icon} {'  '}
       {label}
     </Option>
@@ -100,7 +100,7 @@ const SearchComponent: React.FC = () => {
     ) : null;
 
   const OptionsRender = options.map(({name, title, population}, idx) => (
-    <Option key={idx} value={idx}>
+    <Option key={`${name || title}`} value={idx}>
       <span className="fw-bolder">{name || title}</span>{' '}
       {Boolean(population) && (
         <small className="text-muted">{`(pop. ${population})`}</small>

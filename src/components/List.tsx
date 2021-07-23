@@ -37,7 +37,7 @@ const getDescription = (item): string => {
 const renderAvatar = (item): ReactNode => {
   return item.name === DART_VADER ? (
     <Tooltip title="The evil itself">
-      <Avatar src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYBzwqLYdv7Z1rg3qc8PTGI21Y3QqfJbuSQlBwz98nrRrflnM4jQq074VCN4zBSWFGLhEE9GRvjkM&usqp=CAc"></Avatar>
+      <Avatar src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYBzwqLYdv7Z1rg3qc8PTGI21Y3QqfJbuSQlBwz98nrRrflnM4jQq074VCN4zBSWFGLhEE9GRvjkM&usqp=CAc" />
     </Tooltip>
   ) : (
     <Tooltip title={item.type}>
@@ -89,7 +89,8 @@ const teachThem = () =>
         <img
           src="https://66.media.tumblr.com/81b20d0dc155e45e32d6aad6fda2e134/tumblr_nxmktjrb9s1rey868o1_500.gif"
           className="rounded mx-auto d-block mt-2 responsive-img"
-          alt="the evil don't worry about a11y"></img>
+          alt="the evil don't worry about a11y"
+        />
         <div className="h1 mt-2">Promise to stop!</div>
       </div>
     ),

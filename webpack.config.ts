@@ -4,6 +4,8 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 const {config: configDotEnv} = require('dotenv');
 const dotenv = configDotEnv();
 
@@ -20,7 +22,8 @@ const webpackConfig = (): Configuration => ({
   },
   output: {
     path: path.join(__dirname, '/build'),
-    filename: 'build.js',
+    filename: 'js/[name].js',
+    chunkFilename: 'js/[id].[chunkhash].js',
   },
   module: {
     rules: [
@@ -34,7 +37,13 @@ const webpackConfig = (): Configuration => ({
       },
       {
         test: /\.s?css$/,
-        use: ['style-loader', 'css-loader'],
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
+          //          'style-loader',
+          'css-loader',
+        ],
       },
     ],
   },
@@ -50,6 +59,9 @@ const webpackConfig = (): Configuration => ({
       // HtmlWebpackPlugin simplifies creation of HTML files to serve your webpack bundles
       template: './public/index.html',
     }),
+    new MiniCssExtractPlugin({
+      filename: 'assets/[name].css',
+    }),
     new DefinePlugin({
       'process.env': `(${JSON.stringify(dotenv.parsed)})`,
     }),
@@ -60,6 +72,13 @@ const webpackConfig = (): Configuration => ({
       },
     }),
   ],
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      minSize: 0,
+      name: 'vendors',
+    },
+  },
 });
 
 export default webpackConfig;

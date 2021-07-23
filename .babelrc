@@ -1,4 +1,4 @@
 {
-  "presets": ["airbnb"],
+  "presets": ["airbnb", "@babel/preset-env", "@babel/preset-react"],
   "plugins": ["styled-jsx/babel"]
 }
