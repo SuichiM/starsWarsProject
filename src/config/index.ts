@@ -11,10 +11,10 @@ export const DEFAULT_TYPE: ResourceType = 'planets';
 
 const config = {
   API_URL: 'https://swapi.dev/api',
-  API_URL_ENV: process.env.API_URL,
+  //API_URL_ENV: process.env.API_URL,
 };
 
 // eslint-disable-next-line
-console.log(process.env.API_URL);
+//console.log(process.env.API_URL);
 
 export default config;
