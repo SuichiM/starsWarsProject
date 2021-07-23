@@ -1,4 +1,12 @@
-export const TYPE_OPTIONS = [
+export type paramType = {
+  value: ResourceType;
+  icon: string;
+  label: string;
+};
+
+type ArrayParamType = Array<paramType>;
+
+export const TYPE_OPTIONS: ArrayParamType = [
   {value: 'planets', icon: '🪐', label: 'planets'},
   {value: 'people', icon: '👸', label: 'people'},
   {value: 'films', icon: '⭐', label: 'films'},

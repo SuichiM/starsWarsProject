@@ -1,40 +1,41 @@
 import React, {useContext, useState, ReactNode} from 'react';
 import {List, Avatar, Tooltip, Button, Popconfirm, message, Modal} from 'antd';
 import {MainContext} from '@pages/App';
-import {TYPE_OPTIONS} from '@config/index';
+import {TYPE_OPTIONS, paramType} from '@config/index';
 
 const {Item} = List;
 const {Meta} = Item;
 
-const ICONS = TYPE_OPTIONS.reduce(
-  (prev, {value, icon}) => ({...prev, [value]: icon}),
-  {},
-);
+const GET_ICON = (type: ResourceType) => {
+  // eslint-disable-next-line
+  let ResourceType = TYPE_OPTIONS.find((el: paramType) => el.value === type);
+  return ResourceType.icon;
+};
 
 const DESCRIPTIONS_HANDLERS = {
-  planets: ({population}) => `population: ${population}`,
-  people: ({height, mass}) => `height:${height} mass: ${mass}`,
-  films: ({episode_id, director, release_date}) =>
+  planets: ({population}: IPlanet) => `population: ${population}`,
+  people: ({height, mass}: IPeople) => `height:${height} mass: ${mass}`,
+  films: ({episode_id, director, release_date}: IFilm) =>
     `Ep. N: ${episode_id} director:${director} release date: ${release_date}`,
-  species: ({classification, average_height, language}) =>
+  species: ({classification, average_height, language}: ISpecie) =>
     `classification: ${classification} height av.: ${average_height} language:${language}`,
-  vehicles: ({model, manufacturer, passengers}) =>
+  vehicles: ({model, manufacturer, passengers}: IVehicle) =>
     `model: ${model} manufacturer:${manufacturer} passengers:${passengers}`,
-  starships: ({model, manufacturer, passengers}) =>
+  starships: ({model, manufacturer, passengers}: IStarship) =>
     `model: ${model} manufacturer:${manufacturer} passengers:${passengers}`,
 };
 
 const DART_VADER = 'Darth Vader';
 const PATIENCE_NUMBER = 1;
 
-const getDescription = (item): string => {
+const getDescription = (item: TResource): string => {
   const {type} = item;
 
   const handlerFunction = DESCRIPTIONS_HANDLERS[type];
   return handlerFunction(item) || 'here goes the description';
 };
 
-const renderAvatar = (item): ReactNode => {
+const renderAvatar = (item: TResource): ReactNode => {
   return item.name === DART_VADER ? (
     <Tooltip title="The evil itself">
       <Avatar src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYBzwqLYdv7Z1rg3qc8PTGI21Y3QqfJbuSQlBwz98nrRrflnM4jQq074VCN4zBSWFGLhEE9GRvjkM&usqp=CAc" />
@@ -42,13 +43,16 @@ const renderAvatar = (item): ReactNode => {
   ) : (
     <Tooltip title={item.type}>
       <Avatar size={48}>
-        <span>{ICONS[item.type]}</span>
+        <span>{GET_ICON(item.type)}</span>
       </Avatar>
     </Tooltip>
   );
 };
 
-const renderActions = (item, removeAction): ReactNode[] => [
+const renderActions = (
+  item: TResource,
+  removeAction: (arg: TResource) => void,
+): ReactNode[] => [
   <Popconfirm
     key={`delete_popup_${item.id}`}
     title="Are you sure you want to remove this awesome element？"
@@ -61,7 +65,10 @@ const renderActions = (item, removeAction): ReactNode[] => [
   </Popconfirm>,
 ];
 
-const renderItem = (item, removeAction) => (
+const renderItem = (
+  item: TResource,
+  removeAction: (arg: TResource) => void,
+) => (
   <Item actions={renderActions(item, removeAction)}>
     <Meta
       className="d-flex flex-sm-row"
@@ -76,7 +83,7 @@ const renderItem = (item, removeAction) => (
   </Item>
 );
 
-const advertThem = (times, setTimes) => {
+const advertThem = (times: number, setTimes: (arg: number) => void) => {
   message.warn('try it again!!! I give you one more chance!');
   setTimes(times + 1);
 };
@@ -103,9 +110,11 @@ const ProductList = (/* {items}: ListProps */) => {
   // eslint-disable-next-line
   const [removeDartVaderCount, setRemoveDartVaderCount] = useState(0);
 
-  const removeItem = ({id, name}) => {
+  const removeItem = ({id, name}: TResource) => {
     if (name !== DART_VADER)
-      return setSelectedOptions(selectedOptions.filter((el) => el.id !== id));
+      return setSelectedOptions(
+        selectedOptions.filter((el: TResource) => el.id !== id),
+      );
 
     if (removeDartVaderCount < PATIENCE_NUMBER) {
       advertThem(removeDartVaderCount, setRemoveDartVaderCount);
@@ -120,7 +129,7 @@ const ProductList = (/* {items}: ListProps */) => {
         <List
           itemLayout="horizontal"
           dataSource={selectedOptions}
-          renderItem={(item) => renderItem(item, removeItem)}
+          renderItem={(item: TResource) => renderItem(item, removeItem)}
         />
       </div>
       <style jsx>{`

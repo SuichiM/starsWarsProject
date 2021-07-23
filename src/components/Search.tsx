@@ -48,11 +48,11 @@ const SearchComponent: React.FC = () => {
       },
     });
 
-  const handleAddSelectedOption = (index) => {
+  const handleAddSelectedOption = (index: number) => {
     const selectedOption = options[index];
 
     const alreadyAdded = selectedOptions.some(
-      (el) => el.type === type && el.name === selectedOption.name,
+      (el: TResource) => el.type === type && el.name === selectedOption.name,
     );
     if (alreadyAdded) return showRequest();
 
@@ -126,7 +126,7 @@ const SearchComponent: React.FC = () => {
         showArrow={false}
         filterOption={false}
         onSearch={(value) => debouncedSearchText(value)}
-        onChange={(value) => handleAddSelectedOption(value)}
+        onChange={(value) => handleAddSelectedOption(Number(value))}
         notFoundContent={spinnerRender}>
         {OptionsRender}
       </Select>
