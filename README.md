@@ -2,7 +2,7 @@
 
 This is a React & Typescrypt based project, that allow you interact with the [SW-API](https://swapi.dev/)
 
-![](wiki/img/SWCh.gif)
+![](wiki/img/index.gif)
 
 used stack:
 
