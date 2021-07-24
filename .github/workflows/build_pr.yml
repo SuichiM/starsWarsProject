@@ -20,8 +20,8 @@ jobs:
 
       # Find the PR associated with this push, if there is one.
       - name: Find Current Pull Request
-        uses: actions/checkout@v2
-        uses: jwalton/gh-find-current-pr@v1.0.2
+      - uses: actions/checkout@v2
+      - uses: jwalton/gh-find-current-pr@v1.0.2
         id: findPr
 
         # This will echo "Your PR is 7", or be skipped if there is no current PR.
