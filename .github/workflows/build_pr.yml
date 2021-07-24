@@ -20,14 +20,14 @@ jobs:
 
       # Find the PR associated with this push, if there is one.
       - name: Find Current Pull Request
-        uses: jwalton/gh-find-current-pr@v1.0.2
+      #  uses: jwalton/gh-find-current-pr@v1.0.2
         id: findPr
-        env:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+        run: echo '::set-env name=PR_ID::$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')'
+      #  env:
+      #    github-token: ${{ secrets.GITHUB_TOKEN }}
 
         # This will echo "Your PR is 7", or be skipped if there is no current PR.
-      - run: echo "Your PR is ${{ steps.findPr.outputs.pr }}"
-        if: success() && steps.findPr.outputs.number
+      - run: echo "Your PR is ${PR_ID}"
 
       - name: Install 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
         run: npm install
@@ -45,5 +45,5 @@ jobs:
         with:
           branch: gh-pages # The branch the action should deploy to.
           folder: build # The folder the action should deploy.
-          target-folder: 'feature/${{ steps.findPr.outputs.pr }}'
-          # target-folder: "feature/$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')"
+          # target-folder: 'feature/${{ steps.findPr.outputs.pr }}'
+          target-folder: "feature/${PR_ID}"
