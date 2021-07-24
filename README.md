@@ -46,7 +46,7 @@ npm run start
 docker build  -t my_stars_wars_container .
 ```
 
-2. run the container,
+2. run the container
 
 ```
 docker run -p 8080:8080 -v $PWD:/home/app -d my_stars_wars_container
@@ -66,4 +66,22 @@ docker exec <container_name> npm run start
 
 ### running with docker-compose
 
-having docker-compose simplifies the process to run the project in a container.
+having `docker-compose` simplifies the process to run the project in a container.
+
+1. build and run the service
+
+```sh
+docker-compose up -d
+```
+
+2. install the dependecies
+
+```sh
+docker-compose exec web npm i
+```
+
+3. run the dev server
+
+```sh
+docker-compose exec web npm run start
+```
