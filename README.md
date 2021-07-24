@@ -37,3 +37,29 @@ npm i
 ```sh
 npm run start
 ```
+
+### running on a docker container
+
+1. build the container
+
+```sh
+docker build  -t my_stars_wars_container .
+```
+
+2. run the container,
+
+```
+docker run -p 8080:8080 -v $PWD:/home/app -d my_stars_wars_container
+```
+
+3. install the dependencies
+
+```sh
+docker exec <container_name> npm i
+```
+
+3. run the dev server
+
+```sh
+docker exec <container_name> npm run start
+```
