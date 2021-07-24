@@ -22,12 +22,11 @@ jobs:
       - name: Find Current Pull Request
       #  uses: jwalton/gh-find-current-pr@v1.0.2
       #  id: findPr
-        run: echo "feature/$PR_NUMBER"
-        env:
-          PR_NUMBER: ${{ github.event.issue.number }}
-
-        # This will echo "Your PR is 7", or be skipped if there is no current PR.
-      # - run: echo "Your PR is ${PR_ID}"
+        run: echo '::set-env name=PR_NR::$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')'
+        
+      - name: print ENV
+      - run: echo "feature/$PR_NR"
+      - run: echo "Your PR is ${PR_NR}"
 
       - name: Install 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
         run: npm install
@@ -46,7 +45,4 @@ jobs:
           branch: gh-pages # The branch the action should deploy to.
           folder: build # The folder the action should deploy.
           # target-folder: 'feature/${{ steps.findPr.outputs.pr }}'
-          target-folder: "feature/$PR_NUMBER"
-        env:
-          PR_NUMBER: ${{ github.event.issue.number }}
-
+          target-folder: "feature/$PR_NR"
