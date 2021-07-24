@@ -2,6 +2,8 @@
 
 This is a React & Typescrypt based project, that allow you interact with the [SW-API](https://swapi.dev/)
 
+![](wiki/img/SWCh.gif)
+
 used stack:
 
 - Coded on React 17.
