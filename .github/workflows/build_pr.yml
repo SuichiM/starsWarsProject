@@ -25,7 +25,9 @@ jobs:
         run: echo '::set-env name=PR_NR::$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')'
         
       - name: print ENV
-      - run: echo "feature/$PR_NR"
+        run: echo "feature/$PR_NR"
+      
+      - name: print ENV alternative
       - run: echo "Your PR is ${PR_NR}"
 
       - name: Install 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
