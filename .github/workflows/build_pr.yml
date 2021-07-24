@@ -22,6 +22,8 @@ jobs:
       - name: Find Current Pull Request
         uses: jwalton/gh-find-current-pr@v1.0.2
         id: findPr
+        env:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
         # This will echo "Your PR is 7", or be skipped if there is no current PR.
       - run: echo "Your PR is ${{ steps.findPr.outputs.pr }}"
