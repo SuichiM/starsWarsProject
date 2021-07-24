@@ -63,3 +63,5 @@ docker exec <container_name> npm i
 ```sh
 docker exec <container_name> npm run start
 ```
+
+### running with docker-compose
