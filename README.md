@@ -85,3 +85,13 @@ docker-compose exec web npm i
 ```sh
 docker-compose exec web npm run start
 ```
+
+## OTHER COMMANDS TO RUN
+
+```sh
+# compile the project for production
+npm run build
+
+# lint and fix the files follow the styleguide
+npm run lint
+```
