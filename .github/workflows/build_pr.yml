@@ -24,15 +24,10 @@ jobs:
       #   id: findPr
       #   run: echo '::set-env name=PR_NR::$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')'
       
-      - name: Test
-        uses: actions/github-script@0.3.0
-        with:
-          github-token: ${{github.token}}
-          script: |
-            const core = require('@actions/core')
-            const prNumber = context.payload.number;
-            core.exportVariable('PR_NR', prNumber);    
-    
+      - name: Find the PR associated with this push
+        run:   echo ::set-env name=PR_NR::$(echo "$GITHUB_REF" | awk -F / '{print $3}')
+        shell: bash
+        
       - name: print ENV
         run: echo "feature/$PR_NR"
       
