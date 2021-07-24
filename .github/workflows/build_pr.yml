@@ -22,7 +22,7 @@ jobs:
       - name: Find Current Pull Request
       #  uses: jwalton/gh-find-current-pr@v1.0.2
       #  id: findPr
-        run: echo ${PR_NUMBER}
+        run: echo "feature/$PR_NUMBER"
         env:
           PR_NUMBER: ${{ github.event.issue.number }}
 
@@ -46,7 +46,7 @@ jobs:
           branch: gh-pages # The branch the action should deploy to.
           folder: build # The folder the action should deploy.
           # target-folder: 'feature/${{ steps.findPr.outputs.pr }}'
-          target-folder: "feature/${PR_NUMBER}"
+          target-folder: "feature/$PR_NUMBER"
         env:
           PR_NUMBER: ${{ github.event.issue.number }}
 
