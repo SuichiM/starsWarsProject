@@ -65,3 +65,5 @@ docker exec <container_name> npm run start
 ```
 
 ### running with docker-compose
+
+having docker-compose simplifies the process to run the project in a container.
