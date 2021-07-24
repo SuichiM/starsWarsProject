@@ -28,7 +28,7 @@ jobs:
         run: echo "feature/$PR_NR"
       
       - name: print ENV alternative
-      - run: echo "Your PR is ${PR_NR}"
+        run: echo "Your PR is ${PR_NR}"
 
       - name: Install 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
         run: npm install
