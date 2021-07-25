@@ -29,11 +29,14 @@ jobs:
       #  shell: bash
       
       - name: 'print issue id'
-        run: echo ${{ github.event.issue.id }}
+        run: echo $ID
+        env:
+          ID: ${{ github.event.issue.id }}
       
-      - name: 'Define other envs' 
-        run: echo ${{ github.event.issue }}
-
+      - name: 'print issue' 
+        run: echo $ISSUE
+        env:
+          ISSUE: ${{ github.event.issue }}
       #- name: print ENV
       #  run: echo "feature/${{ PR_NR }}"
           
@@ -57,4 +60,7 @@ jobs:
           branch: gh-pages # The branch the action should deploy to.
           folder: build # The folder the action should deploy.
           # target-folder: 'feature/${{ steps.findPr.outputs.pr }}'
-          target-folder: "feature/${{ github.event.issue.id }}"
+          target-folder: "feature/$ID"
+        env:
+          ID: ${{ github.event.issue.id }}
+
