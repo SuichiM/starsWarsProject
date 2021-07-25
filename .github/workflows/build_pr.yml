@@ -57,4 +57,4 @@ jobs:
           branch: gh-pages # The branch the action should deploy to.
           folder: build # The folder the action should deploy.
           # target-folder: 'feature/${{ steps.findPr.outputs.pr }}'
-          target-folder: "feature/${{ github.event.issue }}"
+          target-folder: "feature/${{ github.event.issue.id }}"
