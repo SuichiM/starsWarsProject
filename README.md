@@ -4,7 +4,7 @@ This is a React & Typescrypt based project, that allow you interact with the [SW
 
 ![](wiki/img/index.gif)
 
-used stack:
+stack:
 
 - Coded on React 17.
 - Uses hooks instead of Classes.
