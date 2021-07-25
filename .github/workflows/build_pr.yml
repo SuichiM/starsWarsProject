@@ -30,24 +30,9 @@ jobs:
       
       - name : Dump github context
         env:
-          GITHUB_CONTEXT: ${{ toJson(github.event) }}
+          GITHUB_CONTEXT: ${{ toJson(github.event.pull_request) }}
         run: echo "$GITHUB_CONTEXT"
-      
-      - name: 'print issue id'
-        run: echo $ID
-        env:
-          ID: ${{ github.event.issue.number }}
-      
-      - name: 'print issue' 
-        run: echo $ISSUE
-        env:
-          ISSUE: ${{ github.event.issue }}
-      #- name: print ENV
-      #  run: echo "feature/${{ PR_NR }}"
-          
-      #- name: print ENV alternative
-      #  run: echo "Your PR is ${{ISSUE}}"
-
+                    
       - name: Install 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
         run: npm install
         env:
@@ -67,5 +52,4 @@ jobs:
           # target-folder: 'feature/${{ steps.findPr.outputs.pr }}'
           target-folder: "feature/$ID"
         env:
-          ID: ${{ github.event.issue.number }}
-
+          ID: ${{ toJson(github.event.pull_request.id) }}
