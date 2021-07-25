@@ -7,7 +7,8 @@
         "start": "webpack-cli serve --mode development --env development --hot",
         "build": "webpack --mode=production --env production --progress",
         "lint": "eslint src/**/*.{ts,tsx} --quiet --fix",
-        "format": "prettier --write '{*.ts,src/**/*.{ts,tsx}}'"
+        "format": "prettier --write '{*.ts,src/**/*.{ts,tsx}}'",
+        "prepare": "husky install"
     },
     "devDependencies": {
         "@babel/core": "^7.14.8",
@@ -37,7 +38,7 @@
         "eslint-plugin-react-hooks": "^4.2.0",
         "fork-ts-checker-webpack-plugin": "^6.1.1",
         "html-webpack-plugin": "^5.3.1",
-        "husky": "^4.2.5",
+        "husky": "^7.0.1",
         "mini-css-extract-plugin": "^2.1.0",
         "node-sass": "^5.0.0",
         "prettier": "^2.2.1",
@@ -56,11 +57,5 @@
         "lodash": "^4.17.21",
         "react": "^17.0.1",
         "react-dom": "^17.0.1"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "pretty-quick --staged",
-            "pre-push": "yarn type-check"
-        }
     }
 }
