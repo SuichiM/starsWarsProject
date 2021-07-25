@@ -10,7 +10,7 @@ used stack:
 - Uses hooks instead of Classes.
 - Uses Context API. (Avoiding Redux)
 - Fully typed using typescript.
-- Follows Airbnb code style (https://github.com/airbnb/javascript).
+- Follows [Airbnb code style](https://github.com/airbnb/javascript).
 
 ## setting the project for dev
 
