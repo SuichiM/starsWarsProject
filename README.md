@@ -24,7 +24,7 @@ git clone https://github.com/SuichiM/starsWarsProject.git
 git clone git@github.com:SuichiM/starsWarsProject.git
 ```
 
-you have serveral ways to run the project, we strongly recommend run the project in a (docker)[https://www.docker.com/] container using (docker-compose)[https://docs.docker.com/compose/install/].
+you have serveral ways to run the project, we strongly recommend run the project in a [docker](https://www.docker.com/) container using [docker-compose](https://docs.docker.com/compose/install/).
 
 ### running on your local machine
 
