@@ -101,3 +101,5 @@ npm run lint
 ```
 
 feel free to send your PR for any improvement or bugfix
+
+SuichiM
