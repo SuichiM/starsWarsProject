@@ -6,7 +6,7 @@ This is a React & Typescrypt based project, that allow you interact with the [SW
 
 stack:
 
-- Coded on React 17.
+- Coded on React 17
 - Uses hooks instead of Classes.
 - Uses Context API. (Avoiding Redux)
 - Fully typed using typescript.
