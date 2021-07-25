@@ -98,6 +98,9 @@ npm run build
 
 # lint and fix the files follow the styleguide
 npm run lint
+
+#format the code
+npm run format
 ```
 
 feel free to send your PR for any improvement or bugfix
