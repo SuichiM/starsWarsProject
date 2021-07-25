@@ -28,6 +28,11 @@ jobs:
       #  run:   echo ::set-env name=PR_NR::$(echo "$GITHUB_REF" | awk -F / '{print $3}')
       #  shell: bash
       
+      - name : Dump github context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github.event) }}
+        run: echo "$GITHUB_CONTEXT"
+      
       - name: 'print issue id'
         run: echo $ID
         env:
