@@ -27,17 +27,18 @@ jobs:
       #- name: Find the PR associated with this push
       #  run:   echo ::set-env name=PR_NR::$(echo "$GITHUB_REF" | awk -F / '{print $3}')
       #  shell: bash
-      - name: 'Define env variables'
-        run: echo "PR_NR=${{ github.event.issue.id }}" >> $GITHUB_ENV
       
-      - name: 'Define other envs' 
-        run: echo "ISSUE=${{ github.event.issue }}" >> $GITHUB_ENV
+      #- name: 'Define env variables'
+      #  run: echo "PR_NR=${{ github.event.issue.id }}" >> $GITHUB_ENV
+      
+      #- name: 'Define other envs' 
+      #  run: echo "ISSUE=${{ github.event.issue }}" >> $GITHUB_ENV
 
-      - name: print ENV
-        run: echo "feature/${{ PR_NR }}"
+      #- name: print ENV
+      #  run: echo "feature/${{ PR_NR }}"
           
-      - name: print ENV alternative
-        run: echo "Your PR is ${{ISSUE}}"
+      #- name: print ENV alternative
+      #  run: echo "Your PR is ${{ISSUE}}"
 
       - name: Install 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
         run: npm install
@@ -56,4 +57,4 @@ jobs:
           branch: gh-pages # The branch the action should deploy to.
           folder: build # The folder the action should deploy.
           # target-folder: 'feature/${{ steps.findPr.outputs.pr }}'
-          target-folder: "feature/${{PR_NR}}"
+          target-folder: "feature/${{ github.event.issue }}"
