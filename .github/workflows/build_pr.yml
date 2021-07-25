@@ -31,7 +31,7 @@ jobs:
       - name: 'print issue id'
         run: echo $ID
         env:
-          ID: ${{ github.event.issue.id }}
+          ID: ${{ github.event.issue.number }}
       
       - name: 'print issue' 
         run: echo $ISSUE
@@ -62,5 +62,5 @@ jobs:
           # target-folder: 'feature/${{ steps.findPr.outputs.pr }}'
           target-folder: "feature/$ID"
         env:
-          ID: ${{ github.event.issue.id }}
+          ID: ${{ github.event.issue.number }}
 
