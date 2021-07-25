@@ -98,5 +98,4 @@ npm run build
 
 # lint and fix the files follow the styleguide
 npm run lint
-
 ```
