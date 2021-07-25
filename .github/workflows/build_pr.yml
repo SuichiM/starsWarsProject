@@ -28,11 +28,11 @@ jobs:
       #  run:   echo ::set-env name=PR_NR::$(echo "$GITHUB_REF" | awk -F / '{print $3}')
       #  shell: bash
       
-      #- name: 'Define env variables'
-      #  run: echo "PR_NR=${{ github.event.issue.id }}" >> $GITHUB_ENV
+      - name: 'print issue id'
+        run: echo ${{ github.event.issue.id }}
       
-      #- name: 'Define other envs' 
-      #  run: echo "ISSUE=${{ github.event.issue }}" >> $GITHUB_ENV
+      - name: 'Define other envs' 
+        run: echo ${{ github.event.issue }}
 
       #- name: print ENV
       #  run: echo "feature/${{ PR_NR }}"
