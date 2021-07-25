@@ -39,6 +39,6 @@ jobs:
         with:
           branch: gh-pages # The branch the action should deploy to.
           folder: build # The folder the action should deploy.
-          target-folder: "feature/$(ID)"
+          target-folder: "feature/${{github.event.pull_request.number}}"
         env:
-          ID: ${{ toJson(github.event.pull_request.id) }}
+          ID: ${{ toJson(github.event.pull_request.number) }}
