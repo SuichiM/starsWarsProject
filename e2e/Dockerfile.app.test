@@ -1,0 +1,11 @@
+FROM cypress/base:12
+
+WORKDIR '/home/app'
+
+COPY ["package.json", "package-lock.json", "/home/app/"]
+
+RUN npm i
+
+RUN ls
+
+ENTRYPOINT ["npm", "run", "start"]

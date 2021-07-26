@@ -1,4 +1,4 @@
-FROM node:lts-slim
+FROM cypress/base:12
 
 WORKDIR '/home/app'
 

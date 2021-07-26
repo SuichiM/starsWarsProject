@@ -118,6 +118,7 @@ const SearchComponent: React.FC = () => {
         {typeOptionsRender}
       </Select>
       <Select
+        id="searchField"
         showSearch
         value={searchText}
         placeholder="Input your search"

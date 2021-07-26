@@ -106,3 +106,33 @@ npm run format
 feel free to send your PR for any improvement or bugfix
 
 SuichiM
+
+## testing with cypress
+
+by the moment the test can run with the dev server running
+
+### open the cypress UI for run the suite
+
+```sh
+ docker run -it --rm \
+ --network host \
+  -v ~/.Xauthority:/root/.Xauthority:ro \
+  -e DISPLAY=unix${DISPLAY} \
+  -e CYPRESS_baseUrl=http://localhost:8080 \
+  -v $PWD:/e2e \
+  -w /e2e \
+  --entrypoint cypress \
+  cypress/included:6.2.1 open --project .
+```
+
+### run the tests only
+
+````
+docker run -it --rm \
+ --network host \
+  -e CYPRESS_baseUrl=http://localhost:8080 \
+  -v $PWD:/e2e \
+  -w /e2e \
+  --entrypoint cypress \
+  cypress/included:6.2.1 run --project .```
+````
