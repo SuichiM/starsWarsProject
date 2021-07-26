@@ -105,7 +105,13 @@ npm run format
 
 ## testing with cypress
 
-by the moment the test can run only with the dev server running
+by the moment the test can run only with the dev server running.
+
+first of all move to the `e2e` folder
+
+```sh
+cd e2e
+```
 
 ### running the tests on command line
 
