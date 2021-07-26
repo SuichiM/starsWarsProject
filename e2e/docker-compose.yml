@@ -1,0 +1,30 @@
+version: '3.2'
+
+# run Cypress tests and exit with command
+#   docker-compose up --exit-code-from cypress
+services:
+  # this is the web application we are going to test
+  web:
+    build:
+      context: ../
+      dockerfile: e2e/Dockerfile.app.test
+    volumes:
+      - ../:/home/app
+    environment:
+      - PORT=8123
+    entrypoint: ['npm', 'run', 'start']
+
+  # Cypress container
+  cypress:
+    # the Docker image to use from https://github.com/cypress-io/cypress-docker-images
+    image: 'cypress/included:6.2.1'
+    depends_on:
+      - web
+    command: ['./wait-for-it.sh', 'e2e_web_1:8123', 'cypress', 'run']
+    environment:
+      # pass base url to test pointing at the web application
+      - CYPRESS_baseUrl=http://e2e_web_1:8123
+    # share the current folder as volume to avoid copying
+    working_dir: /e2e
+    volumes:
+      - ./:/e2e
